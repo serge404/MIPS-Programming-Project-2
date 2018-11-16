@@ -6,5 +6,8 @@
 
 .text 
 	main:
-	
+        li $v0, 8 # read in a string
+        la $a0, char_array
+        li $a1, 9
+        syscall
 	
