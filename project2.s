@@ -20,10 +20,16 @@
 
 	inputLength:
 	lb $t2, 0($t0)
-	beq $t2, 10, checkEmpty	# moves to convert
+	beq $t2, 10, empty	# moves to convert
 	addi $t0, $t0, 1
-	beq $t2, 32, checkSpaceLen 	# checks for number of spaces so it is not added to count
+	beq $t2, 32, spaceLength 	# checks for number of spaces so it is not added to count
 	li $s7, 1 	# count is added if nonspace character appears
 	addi $t1, $t1, 1
 	bgt $t1, 4, tooLong
 	j inputLength
+
+	convert:
+	beq $t1, 0, printResult
+	addi $t0, $t0, -1 	# move backwards 
+	lb $t2, 0($t0)
+	beq $t2, 32, space   # checks if space is middle or not
