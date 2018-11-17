@@ -23,7 +23,7 @@
 	beq $t2, 10, empty	# moves to convert
 	addi $t0, $t0, 1
 	beq $t2, 32, spaceLength 	# checks for number of spaces so it is not added to count
-	li $s7, 1 	# count is added if nonspace character appears
+	li $s7, 1 	# count is set to 1 if nonspace character appears
 	addi $t1, $t1, 1
 	bgt $t1, 4, tooLong
 	j inputLength
@@ -33,3 +33,11 @@
 	addi $t0, $t0, -1 	# move backwards 
 	lb $t2, 0($t0)
 	beq $t2, 32, space   # checks if space is middle or not
+	li $s7, 1
+	addi $t1, $t1, -1	# decreases $t1 by 1
+	j convertChar
+
+	exit: # exits code
+	li $v0, 10
+	syscall
+
