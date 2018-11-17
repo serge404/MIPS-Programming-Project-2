@@ -1,8 +1,8 @@
 .data
-	user_string: .space 5 # space needed for 4 characters and 1 null
-	invalid_hex: .asciiz "Invalid base-30 number" #for characters not in the set
-	hex_too_long: .asciiz "Input is too long." #for strings more than 5 characters
-	hex_too_short: .asciiz "Input is empty." #for strings with 0 characters
+	user_string: .space 5 	# space needed for 4 characters and 1 null
+	invalid_hex: .asciiz "Invalid base-30 number" 	# for characters not in the set
+	hex_too_long: .asciiz "Input is too long." 	# for strings more than 5 characters
+	hex_too_short: .asciiz "Input is empty." 	# for strings with 0 characters
 
 .text 
 	main:
@@ -22,4 +22,8 @@
 	lb $t2, 0($t0)
 	beq $t2, 10, checkEmpty	# moves to convert
 	addi $t0, $t0, 1
-	beq $t2, 32, checkSpaceLen # checks for number of spaces so it is not added to count
+	beq $t2, 32, checkSpaceLen 	# checks for number of spaces so it is not added to count
+	li $s7, 1 	# count is added if nonspace character appears
+	addi $t1, $t1, 1
+	bgt $t1, 4, tooLong
+	j inputLength
