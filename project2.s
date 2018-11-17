@@ -17,3 +17,9 @@
 	li $t4, 1	# power that is multiplied
 	li $s1, 27				
 	li $t1, 0   	# counts the number of characters in string
+
+	inputLength:
+	lb $t2, 0($t0)
+	beq $t2, 10, checkEmpty	# moves to convert
+	addi $t0, $t0, 1
+	beq $t2, 32, checkSpaceLen # checks for number of spaces so it is not added to count
